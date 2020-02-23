@@ -3,6 +3,9 @@ from io import StringIO
 import pandas as pd
 import numpy as np
 
+import datetime
+import time
+
 def crawl_all(date):
     r = requests.post('http://www.twse.com.tw/exchangeReport/MI_INDEX?response=csv&date=' + str(date).split(' ')[0].replace('-','') + '&type=ALL')
     print(r.text)
@@ -28,12 +31,12 @@ def crawl_stock(date, stockNo):
     ret['成交金額'] = ret['成交金額'].str.replace(',','')
     ret['成交股數'] = ret['成交股數'].str.replace(',','')
     return ret
-
+"""
 #撈每一隻股票資料
 #test = crawl_all("2020-02-21 11:38:35.231800")
 
 #撈特定日期, 特定股票
-test = crawl_stock("20200221","2330")
+test = crawl_stock("20200101","2330")
 df = pd.DataFrame(test)
 
 #全部資料:
@@ -47,4 +50,5 @@ print(df)
 print(str(df.index[0]) + "日, 成交張數=" + str(int(df.iloc[0,0])/1000) +", 收盤價=" + str(df.iloc[0,5]))
 
 
-
+#to-do: 指標, 趨勢, 周月K
+"""
